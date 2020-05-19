@@ -1,0 +1,73 @@
+# [Services]
+apiVersion: v1
+kind: Service
+metadata:
+  name: HueneiEmployees-svc
+spec:
+  ports:
+  - port: 8082
+    targetPort: 8080
+    protocol: TCP
+    name: http
+  selector:
+    app: HueneiEmployees
+    tier: backend
+  type: LoadBalancer
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: HueneiEmployees
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: HueneiEmployees
+  template:
+    metadata:
+      labels:
+        app: HueneiEmployees
+        tier: backend
+    spec:
+      volumes:
+      - name: google-cloud-key
+        secret:
+          secretName: pubsub-key
+      containers:
+      # [APP]
+      - name: HueneiEmployees
+        image: gcr.io/prueba-kervin-gcp/HueneiEmployees:latest
+        volumeMounts:
+        - name: google-cloud-key
+          mountPath: /var/secrets/google
+        imagePullPolicy: Always
+        ports:
+          - containerPort: 8080
+        resources:
+          requests:
+            cpu: "100m"
+            memory: "500Mi"
+          limits:
+            cpu: "200m"
+            memory: "1000Mi" 
+        livenessProbe:
+          httpGet:
+            path: /actuator/info
+            port: 8080
+            scheme: HTTP
+          initialDelaySeconds: 160
+          periodSeconds: 60
+          timeoutSeconds: 10       
+        #[env-vars]
+        env:
+        - name: WS_BE
+          value: "http://dummy.restapiexample.com/api/v1/employees"
+        - name: SFTP_URL
+          value: "34.69.58.88"
+        - name: SFTP_USER  
+          value: "kervin"
+        - name: SFTP_PASS  
+          value: "Picky2020"
+        - name: SFTP_DIR  
+          value: "/home/sftp/"        
