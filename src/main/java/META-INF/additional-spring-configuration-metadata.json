@@ -1,0 +1,5 @@
+{"properties": [{
+  "name": "dummy.restapiexample.com.endpoint",
+  "type": "java.lang.String",
+  "description": "A description for 'dummy.restapiexample.com.endpoint'"
+}]}
