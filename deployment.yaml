@@ -37,7 +37,7 @@ spec:
       containers:
       # [APP]
       - name: HueneiEmployees
-        image: gcr.io/prueba-kervin-gcp/HueneiEmployees:latest
+        image: gcr.io/flowing-sign-277615/HueneiEmployees:latest
         volumeMounts:
         - name: google-cloud-key
           mountPath: /var/secrets/google
