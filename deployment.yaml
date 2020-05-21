@@ -2,7 +2,7 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: HueneiEmployees-svc
+  name: huenei-employees-svc
 spec:
   ports:
   - port: 8082
@@ -10,7 +10,7 @@ spec:
     protocol: TCP
     name: http
   selector:
-    app: HueneiEmployees
+    app: huenei-employees
     tier: backend
   type: LoadBalancer
 
@@ -18,16 +18,16 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: HueneiEmployees
+  name: huenei-employees
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: HueneiEmployees
+      app: huenei-employees
   template:
     metadata:
       labels:
-        app: HueneiEmployees
+        app: huenei-employees
         tier: backend
     spec:
       volumes:
@@ -36,8 +36,8 @@ spec:
           secretName: pubsub-key
       containers:
       # [APP]
-      - name: HueneiEmployees
-        image: gcr.io/flowing-sign-277615/HueneiEmployees:latest
+      - name: huenei-employees
+        image: gcr.io/flowing-sign-277615/huenei-employees:latest
         volumeMounts:
         - name: google-cloud-key
           mountPath: /var/secrets/google

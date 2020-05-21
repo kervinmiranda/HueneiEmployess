@@ -9,9 +9,9 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.huenei</groupId>
-	<artifactId>HueneiEmployees</artifactId>
+	<artifactId>huenei-employees</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>HueneiEmployees</name>
+	<name>huenei-employees</name>
 	<description>Lab Huenei</description>
 
 	<properties>
@@ -47,7 +47,7 @@
 		    <groupId>com.jcraft</groupId>
 		    <artifactId>jsch</artifactId>
 		    <version>0.1.55</version>
-		</dependency>    
+		</dependency>		
 	</dependencies>
 
 	<build>
